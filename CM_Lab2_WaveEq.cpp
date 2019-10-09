@@ -24,20 +24,21 @@ int main()
 	for (int i=0; i<numberOfT; i++){
 		solution[i][0] = 0;
 	}
-	/*
+	
 	for (int i=0; i<numberOfT; i++){
                 solution[i][numberOfX-1] = 0;
-        }*/
+        }
 
 
 	for (int i=0; i<numberOfX; i++){
-		solution[0][i] = fZero(0, (startX+i*dX)); 
+		solution[0][i] = fZero(0, (startX+i*dX));
 	}
 
 	for (int n = 0; n < numberOfT-1 ; n++){
 		for (int i = 1; i < numberOfX-1; i++){
 			solution[n+1][i] = upwind(solution[n][i], solution[n][i-1],dX, dT);
-			/*solution[n+1][i] = central(solution[n][i], solution[n][i-1], solution[n][i+1], dX, dT);*/
+			//solution[n+1][i] = central(solution[n][i], solution[n][i-1], solution[n][i+1], dX, dT);
+			
 		} 
 	}
 	
@@ -92,9 +93,9 @@ double fOne(double t, double x)
 } 
 
 double upwind(double curX, double prevX, double dx, double dt){
-	return curX + ((curX - prevX)/dx)*dt;
+	return curX - ((curX - prevX)/dx)*dt;
 }
 
 double central(double curX, double prevX, double nextX, double dx, double dt){
-	return curX + ((nextX - prevX)/(2*dx))/dt;
+	return curX - ((nextX - prevX)/(2*dx))/dt;
 }
